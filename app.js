@@ -1,6 +1,10 @@
 const ex = require('express')
+
+require('dotenv').config();
+const api = process.env.API_TOKEN;
 const telegram = require('node-telegram-bot-api')
-const bot = new telegram('7102544602:AAGigJfNSBb_9yRnvxsH1_QDC8lhcJRtMjM',{polling:true})
+ 
+const bot = new telegram(api,{polling:true})
 const app = ex()
 
 bot.on('message',(msg)=>{

@@ -10,6 +10,10 @@ const app = ex()
 bot.on('message',(msg)=>{
     const chatId = msg.chat.id;
     const messageText = msg.text;
+    
+    if(messageText=='/start'){
+        bot.sendMessage(chatId,'Welcome')
+    }
 
     console.log(msg);
     // Respond to the user

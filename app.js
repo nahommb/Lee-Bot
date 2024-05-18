@@ -7,16 +7,19 @@ const bot = new telegram(api,{polling:true})
 const app = ex()
 const mongoose = require('mongoose')
 const buttons = require('./components/buttons')
+const register = require('./controllers/register')
 
+mongoose.connect("mongodb://127.0.0.1:27017/leebotdb")
 
 bot.on('message',async(msg) =>{
     const chatId = msg.chat.id;
     const messageText = msg.text;
 
     if(messageText=='/start'){  
-        bot.sendMessage(chatId,'Welcome')
+        bot.sendMessage(chatId,'Welcome'),
+        register('12345')
     }
-    // const response = await data('users');
+    // const response = await data('users');  
     const response = 'yess'
     bot.sendMessage(chatId,response,{
         reply_markup:{

@@ -1,21 +1,24 @@
 const axios = require('axios');
 
-// var response = ['messi'];
-const options = {
+
+const fetch = async(name)=>{
+
+ const options = {
   method: 'GET',
-  url: 'https://instagram-scraper-2022.p.rapidapi.com/ig/music_search/',
-  params: {name: 'efrem'},
+  url: 'https://youtube-mp3-downloader5.p.rapidapi.com/',
+  params: {
+    url: 'https://youtu.be/LvVz-hgTObk'
+  },
   headers: {
     'X-RapidAPI-Key': '9ca95ca6c0msha5a9194b83ddbfcp12e67ejsn96209304ff2f',
-    'X-RapidAPI-Host': 'instagram-scraper-2022.p.rapidapi.com'
+    'X-RapidAPI-Host': 'youtube-mp3-downloader5.p.rapidapi.com'
   }
-};
-const fetch = async()=>{
-    try {
-	response = await axios.request('https://api.github.com/users');
+};  
 
-     console.log(response.data[0].login);
-    return response.data[0].login;
+try {
+	const response = await axios.request(options);
+     console.log(response.data)
+    return response.data.title;
 	
 } catch (error) {
 	console.error(error);

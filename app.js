@@ -8,6 +8,8 @@ const app = ex()
 const mongoose = require('mongoose')
 const buttons = require('./components/buttons')
 const register = require('./controllers/register')
+const storage = require('./controllers/storage')
+
 const words = require('./Data/word')
 
 
@@ -57,10 +59,25 @@ bot.on('message',async(msg) =>{
     const chatId = msg.chat.id;
     const messageText = msg.text;
 
-    if(messageText=='start'){    
-        // register('12345')
-
-    }
+    if(chatId===873484934 && messageText==='Admin'){
+        bot.sendMessage(chatId,'Enter File Name',{
+            reply_markup:{
+                inline_keyboard:buttons.InlineButtons.courses
+            }
+        })    
+     
+ 
+    }  
+     bot.on('callback_query',async(callback)=>{
+         const fileName = callback.data
+         bot.sendMessage(chatId,'now send file from the device')
+        await bot.on('message',(msg)=>{
+            console.log(msg)
+         })
+         const file = ''
+            //storage(fileName,file)
+            console.log(callback.data)
+        })
     // const response = await data('users');  
     // const response = 'yess'
     // bot.sendMessage(chatId,response,{

@@ -1,3 +1,4 @@
+
 const InlineButtons = {
     register:[
     [ {
@@ -9,7 +10,23 @@ const InlineButtons = {
    done:[[{
     text:'Done',
     callback_data:'done'
-   }]]
+   }]],
+   courses:[
+    [
+        {
+        text:'Java',
+        callback_data:'java'
+        },
+        {
+            text:'C++',
+            callback_data:'C++'
+        },
+        {
+            text:'Web dev',
+            callback_data:'web dev'
+        },
+    ]
+    ]
     ,
     test: [[
             {

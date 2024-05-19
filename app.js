@@ -8,27 +8,69 @@ const app = ex()
 const mongoose = require('mongoose')
 const buttons = require('./components/buttons')
 const register = require('./controllers/register')
+const words = require('./Data/word')
+
 
 mongoose.connect("mongodb://127.0.0.1:27017/leebotdb")
+
+bot.onText(/\/start/, async (msg)=>{
+    const chatId = msg.chat.id;
+    
+    bot.sendMessage(chatId,words.welcome,{
+        reply_markup:{
+            inline_keyboard:buttons.InlineButtons.register, 
+            resize_keyboard:true,
+            on_time_keyboard:true
+       }
+    })
+})
+
+bot.on('callback_query', async (callback)=>{
+    const chatId = callback.message.chat.id;
+
+   if(callback.data ==='register'){
+    const isAlreadyRegisterd = await register('12345') 
+    console.log(isAlreadyRegisterd)
+
+    if(!isAlreadyRegisterd){
+        bot.sendMessage(chatId,'payment method',{
+        reply_markup:{
+            inline_keyboard:buttons.InlineButtons.done, 
+            resize_keyboard:true,
+            on_time_keyboard:true
+       }
+    })  
+    }
+     else {
+    bot.sendMessage(chatId,'You are already registed')
+   }
+   }    
+   else if(callback.data === 'done'){
+             bot.sendMessage(chatId,'thanks pls wait untile ur payment varified')
+             bot.sendMessage(chatId,'pp')
+        }
+
+
+})
 
 bot.on('message',async(msg) =>{
     const chatId = msg.chat.id;
     const messageText = msg.text;
 
-    if(messageText=='/start'){  
-        bot.sendMessage(chatId,'Welcome'),
-        register('12345')
+    if(messageText=='start'){    
+        // register('12345')
+
     }
     // const response = await data('users');  
-    const response = 'yess'
-    bot.sendMessage(chatId,response,{
-        reply_markup:{
-             inline_keyboard:buttons.InlineButtons, 
-            // keyboard:buttons.KeyboardButtons,
-             resize_keyboard:true,
-             on_time_keyboard:true
-        }
-      })
+    // const response = 'yess'
+    // bot.sendMessage(chatId,response,{
+    //     reply_markup:{
+    //          inline_keyboard:buttons.InlineButtons, 
+    //         // keyboard:buttons.KeyboardButtons,
+    //          resize_keyboard:true,
+    //          on_time_keyboard:true
+    //     }
+    //   })
  
 })
 

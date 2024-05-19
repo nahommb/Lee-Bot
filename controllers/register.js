@@ -1,18 +1,23 @@
 const mongoose = require('mongoose')
 const User = require('../models/registerSchema')
 
-const register = (chatId)=>{
+const register = async (chatId)=>{
   const newuser = User({
     chatId:chatId
   })
-User.find({chatId}).exec().then((data)=>{
+  var isAlreadyRegisterd = false
+await User.findOne({chatId}).exec().then((data)=>{
     if(data){
         console.log('already registerd')
+        console.log(data)
+        isAlreadyRegisterd = true
     }
     else{
      newuser.save()   
+     isAlreadyRegisterd = false
     }
 })
+return isAlreadyRegisterd
 }
 
 module.exports = register

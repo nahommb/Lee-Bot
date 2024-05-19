@@ -1,13 +1,17 @@
-const InlineButtons = [
-
-   [ {
-        text:'First year',
-        callback_data: 'first_year'
+const InlineButtons = {
+    register:[
+    [ {
+        text:'Register',
+        callback_data: 'register'
      }
     ]
-
+   ] ,
+   done:[[{
+    text:'Done',
+    callback_data:'done'
+   }]]
     ,
-        [
+    test: [[
             {
                 text: 'Visit us!',
                 url: 'https://github.com/mast/telegram-bot-api'
@@ -16,8 +20,9 @@ const InlineButtons = [
                 text: 'messi',
                 url: 'https://github.com/mast/telegram-bot-api'
             },
-       ] 
-]
+       ]]
+
+}
 //console.log(InlineButtons[0][0].text)
 const KeyboardButtons =[
    

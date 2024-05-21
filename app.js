@@ -128,7 +128,19 @@ bot.on('message',async(msg) =>{
     }  
    else{
     switch(messageText){
-     case 'First Year':console.log('lee')
+     case 'First Year':{
+        file_path = await readDatabase.findFile('C++')
+        console.log(file_path)
+        bot.sendMessage(chatId,'Semester',{
+            reply_markup:{
+                inline_keyboard:buttons.InlineButtons.semester,
+                resize_keyboard:true,
+                on_time_keyboard:true
+            }
+        })
+        break;
+     }
+      
      case 'Second Year':{
         file_path = await readDatabase.findFile('C++')
         console.log(file_path)
@@ -139,9 +151,48 @@ bot.on('message',async(msg) =>{
                 on_time_keyboard:true
             }
         })
+        break;
      }
-    }
      
+     case 'Third Year' :{
+        file_path = await readDatabase.findFile('C++')
+        console.log(file_path)
+        bot.sendMessage(chatId,'Semester',{
+            reply_markup:{
+                inline_keyboard:buttons.InlineButtons.semester,
+                resize_keyboard:true,
+                on_time_keyboard:true
+            }
+        })
+        break;
+     }
+     
+     case 'Fourth Year' :{
+        file_path = await readDatabase.findFile('C++')
+        console.log(file_path)
+        bot.sendMessage(chatId,'Semester',{
+            reply_markup:{
+                inline_keyboard:buttons.InlineButtons.semester,
+                resize_keyboard:true,
+                on_time_keyboard:true
+            }
+        })
+       break; 
+     }
+     
+     case 'Fifth Year':{
+        file_path = await readDatabase.findFile('C++')
+        console.log(file_path)
+        bot.sendMessage(chatId,'Semester',{
+            reply_markup:{
+                inline_keyboard:buttons.InlineButtons.semester,
+                resize_keyboard:true,
+                on_time_keyboard:true
+            }
+        })
+        break;
+     }
+    }    
    // bot.sendDocument(chatId,file_path)
    }
   

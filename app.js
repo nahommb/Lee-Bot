@@ -131,13 +131,7 @@ bot.on('message',async(msg) =>{
      case 'First Year':{
         file_path = await readDatabase.findFile('C++')
         console.log(file_path)
-        bot.sendMessage(chatId,'Semester',{
-            reply_markup:{
-                inline_keyboard:buttons.InlineButtons.semester,
-                resize_keyboard:true,
-                on_time_keyboard:true
-            }
-        })
+        bot.sendMessage(chatId,'First Year is Fresh man year it is not included here try another year of education')
         break;
      }
       
@@ -193,6 +187,32 @@ bot.on('message',async(msg) =>{
         break;
      }
     }    
+    bot.on('callback_query',(callback)=>{
+        if(callback.data ==='1st semester'){
+            bot.sendMessage(callback.message.chat.id,'1st semester courses',{
+                reply_markup:{
+                    inline_keyboard:buttons.InlineButtons.courses,
+                    resize_keyboard:true,
+                    on_time_keyboard:true
+                }
+            })
+        }
+        else if(callback.data === '2nd semester'){
+                bot.sendMessage(callback.message.chat.id,'2nd semester courses',{
+                    reply_markup:{
+                        inline_keyboard:buttons.InlineButtons.courses,
+                        resize_keyboard:true,
+                        on_time_keyboard:true
+                    }
+                })
+                bot.on('callback_query',(coursesCallback)=>{
+                    switch(coursesCallback.data){
+                        case 'java':console.log('sent')
+                    }
+                })
+            }
+        
+    })
    // bot.sendDocument(chatId,file_path)
    }
   

@@ -11,6 +11,17 @@ const InlineButtons = {
     text:'Done',
     callback_data:'done'
    }]],
+   payment_check:[
+    [
+        {
+      text:'Verified',
+      callback_data:'verified'
+   },
+   {
+    text:'Not verified',
+    callback_data:'not verified'
+   }
+   ]],
    courses:[
     [
         {
@@ -25,38 +36,54 @@ const InlineButtons = {
             text:'Web dev',
             callback_data:'web dev'
         },
+        {
+            text:'Security',
+            callback_data:'security'
+        },
     ]
     ]
     ,
-    test: [[
+    semester: [
+         [
             {
-                text: 'Visit us!',
-                url: 'https://github.com/mast/telegram-bot-api'
+                text: '1st Semester',
+                callback_data:'1st semester'
             },
             {
-                text: 'messi',
-                url: 'https://github.com/mast/telegram-bot-api'
+                text: '2nd Semester',
+                callback_data:'2nd semester'
             },
-       ]]
+       ]
+    ]
 
 }
 //console.log(InlineButtons[0][0].text)
-const KeyboardButtons =[
+const KeyboardButtons = {
    
+   start: [
     [
-        {
-        text:'test'
+    {
+        text:'First Year'
+     },
+     {
+        text:'Second Year'
      }
+    ],
+
+   [
+    {
+        text:'Third Year'
+    },
+    {
+        text:'Fourth Year'
+    }
    ],
    [
     {
-        text:'neymar'
-    },
-    {
-        text:'messi'
+        text:'Fifth Year'
     }
    ]
-
-]
+   ]
+}
 
 module.exports = {InlineButtons,KeyboardButtons}

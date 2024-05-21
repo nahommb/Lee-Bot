@@ -1,8 +1,9 @@
 const mongoose = require('mongoose')
 const User = require('../models/registerSchema')
+const File = require('../models/storageSchema')
 
 const isAvailable = (user)=>{
-    userExists = false
+  var  userExists = false
  User.findOne({user}).exec().then((data)=>{
     if(data){
       userExists = true
@@ -11,5 +12,15 @@ const isAvailable = (user)=>{
  })
  return userExists
 }
+const findFile = async (filename)=>{
+   var file_path;
+    await File.findOne({fileName:filename}).exec().then((data)=>{
+        if(data){
+            file_path = data.file
+        }
+    })
+    return file_path;
+}
 
-module.exports = isAvailable
+
+module.exports = {isAvailable,findFile}

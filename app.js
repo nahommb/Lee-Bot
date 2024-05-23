@@ -12,7 +12,8 @@ const storage = require('./controllers/storage')
 const readDatabase = require('./controllers/readDatabase')
 
 
-const words = require('./Data/word')
+const words = require('./Data/word');
+
 
 
 mongoose.connect("mongodb://127.0.0.1:27017/leebotdb")
@@ -81,7 +82,7 @@ bot.onText(/\/start/,(msg)=>{
     const chatId = msg.chat.id;
     bot.sendMessage(chatId,words.welcome,{
         reply_markup:{
-            keyboard:buttons.KeyboardButtons.start,
+            inline_keyboard:buttons.InlineButtons.start,
             resize_keyboard:true,
             on_time_keyboard:true
         }
@@ -127,95 +128,116 @@ bot.on('message',async(msg) =>{
         })
     }  
    else{
-    switch(messageText){
-     case 'First Year':{
-        file_path = await readDatabase.findFile('C++')
-        console.log(file_path)
-        bot.sendMessage(chatId,'First Year is Fresh man year it is not included here try another year of education')
-        break;
-     }
-      
-     case 'Second Year':{
-        file_path = await readDatabase.findFile('C++')
-        console.log(file_path)
-        bot.sendMessage(chatId,'Semester',{
-            reply_markup:{
-                inline_keyboard:buttons.InlineButtons.semester,
-                resize_keyboard:true,
-                on_time_keyboard:true
-            }
-        })
-        break;
-     }
-     
-     case 'Third Year' :{
-        file_path = await readDatabase.findFile('C++')
-        console.log(file_path)
-        bot.sendMessage(chatId,'Semester',{
-            reply_markup:{
-                inline_keyboard:buttons.InlineButtons.semester,
-                resize_keyboard:true,
-                on_time_keyboard:true
-            }
-        })
-        break;
-     }
-     
-     case 'Fourth Year' :{
-        file_path = await readDatabase.findFile('C++')
-        console.log(file_path)
-        bot.sendMessage(chatId,'Semester',{
-            reply_markup:{
-                inline_keyboard:buttons.InlineButtons.semester,
-                resize_keyboard:true,
-                on_time_keyboard:true
-            }
-        })
-       break; 
-     }
-     
-     case 'Fifth Year':{
-        file_path = await readDatabase.findFile('C++')
-        console.log(file_path)
-        bot.sendMessage(chatId,'Semester',{
-            reply_markup:{
-                inline_keyboard:buttons.InlineButtons.semester,
-                resize_keyboard:true,
-                on_time_keyboard:true
-            }
-        })
-        break;
-     }
-    }    
-    bot.on('callback_query',(callback)=>{
-        if(callback.data ==='1st semester'){
-            bot.sendMessage(callback.message.chat.id,'1st semester courses',{
-                reply_markup:{
-                    inline_keyboard:buttons.InlineButtons.courses,
-                    resize_keyboard:true,
-                    on_time_keyboard:true
-                }
-            })
-        }
-        else if(callback.data === '2nd semester'){
-                bot.sendMessage(callback.message.chat.id,'2nd semester courses',{
-                    reply_markup:{
-                        inline_keyboard:buttons.InlineButtons.courses,
-                        resize_keyboard:true,
-                        on_time_keyboard:true
-                    }
-                })
-                bot.on('callback_query',(coursesCallback)=>{
-                    switch(coursesCallback.data){
-                        case 'java':console.log('sent')
-                    }
-                })
-            }
-        
-    })
    // bot.sendDocument(chatId,file_path)
+
+bot.on('callback_query',(courseCallback)=>{
+
+
+    bot.answerCallbackQuery(courseCallback.id)
+    const year= courseCallback.data
+    try{
+        switch(courseCallback.data){
+
+        case 'First Year':{
+        bot.sendMessage(courseCallback.message.chat.id,'Fresh Man',{
+         
+        })  
+        break;  
+       }
+       case 'Second Year':{
+        bot.sendMessage(courseCallback.message.chat.id,'Choice Semester',{
+            reply_markup:{
+                keyboard:buttons.KeyboardButtons.semester,
+                resize_keyboard:true,
+                on_time_keyboard:true
+            }
+        })    
+        bot.once('message',(msg)=>{
+            const message = msg.text
+           console.log(msg)
+        bot.sendMessage(courseCallback.message.chat.id,`${year} ${message} courses`,{
+            reply_markup:{
+                inline_keyboard:message==='1st Semester'? buttons.InlineButtons.courses.secondYear.firstSemester:buttons.InlineButtons.courses.secondYear.secondSemester,
+                resize_keyboard:true,
+                on_time_keyboard:true
+            }
+        })
+    })
+    break;
+    }
+    case 'Third Year' :{
+        bot.sendMessage(courseCallback.message.chat.id,'Choice Semester',{
+            reply_markup:{
+                keyboard:buttons.KeyboardButtons.semester,
+                resize_keyboard:true,
+                on_time_keyboard:true
+            }
+        })    
+        bot.once('message',(msg)=>{
+            const message = msg.text
+        bot.sendMessage(courseCallback.message.chat.id,`${year} ${message} courses`,{
+            reply_markup:{
+                inline_keyboard:message==='1st Semester'? buttons.InlineButtons.courses.thirdYear.firstSemester:buttons.InlineButtons.courses.thirdYear.secondSemester,
+                resize_keyboard:true,
+                on_time_keyboard:true
+            }
+        })
+    })
+    break;
+       } 
+       
+ 
+      case 'Fourth Year' : {
+        bot.sendMessage(courseCallback.message.chat.id,'Choice Semester',{
+            reply_markup:{
+                keyboard:buttons.KeyboardButtons.semester,
+                resize_keyboard:true,
+                on_time_keyboard:true
+            }
+        })    
+        bot.once('message',(msg)=>{
+            const message = msg.text
+        bot.sendMessage(courseCallback.message.chat.id,`${year} ${message} courses`,{
+            reply_markup:{
+                inline_keyboard:message==='1st Semester'? buttons.InlineButtons.courses.fourthYear.firstSemester:buttons.InlineButtons.courses.fourthYear.secondSemester,
+                resize_keyboard:true,
+                on_time_keyboard:true
+            }
+        })
+    })
+    break;
+       }
+           
+       case 'Fifth Year':{
+        bot.sendMessage(courseCallback.message.chat.id,'Choice Semester',{
+            reply_markup:{
+                keyboard:buttons.KeyboardButtons.semester,
+                resize_keyboard:true,
+                on_time_keyboard:true
+            }
+        })    
+        bot.once('message',(msg)=>{
+            const message = msg.text
+        bot.sendMessage(courseCallback.message.chat.id,`${year} ${message} courses`,{
+            reply_markup:{
+                inline_keyboard:message==='1st Semester'? buttons.InlineButtons.courses.fifthYear.firstSemester:buttons.InlineButtons.courses.fifthYear.secondSemester,
+                resize_keyboard:true,
+                on_time_keyboard:true
+            }
+        })
+    })
+    break;
+       }
+        }
+        }
+
+    catch(err){
+        console.log(err)
+    }
+    
+})
+
    }
-  
 })
 
 

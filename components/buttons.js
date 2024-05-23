@@ -22,68 +22,173 @@ const InlineButtons = {
     callback_data:'not verified'
    }
    ]],
-   courses:[
+   courses:{
+    'secondYear':{
+        'firstSemester':[
     [
         {
-        text:'Java',
-        callback_data:'java'
+        text:'Programming 2 (C++) ',
+        callback_data:'c++'
         },
         {
-            text:'C++',
-            callback_data:'C++'
+            text:'Fundamentals of Software Eng',
+            callback_data:'fundamentals of softaware eng'
         },
         {
-            text:'Web dev',
-            callback_data:'web dev'
+            text:'Fundamnetals of Database',
+            callback_data:'fundamentals of data'
         },
         {
-            text:'Security',
+            text:'',
             callback_data:'security'
         },
     ]
+    ],
+    'secondSemester':[[
+        {
+            text:'Oprating system',
+            callback_data:'oprating system'
+        }
+    ]]
+    },
+    thirdYear:{
+        'firstSemester':[
+    [
+        {
+        text:'Security',
+        callback_data:'c++'
+        },
+        {
+            text:'Fundamentals of Software Eng',
+            callback_data:'fundamentals of softaware eng'
+        },
+        {
+            text:'Fundamnetals of Database',
+            callback_data:'fundamentals of data'
+        },
+        {
+            text:'',
+            callback_data:'security'
+        },
     ]
+    ],
+    'secondSemester':[[
+        {
+            text:'web',
+            callback_data:'oprating system'
+        }
+    ]]
+    },
+    fourthYear:{
+        'firstSemester':[
+    [
+        {
+        text:'Machine',
+        callback_data:'c++'
+        },
+        {
+            text:'Fundamentals of Software Eng',
+            callback_data:'fundamentals of softaware eng'
+        },
+        {
+            text:'Fundamnetals of Database',
+            callback_data:'fundamentals of data'
+        },
+        {
+            text:'Advanced java',
+            callback_data:'security'
+        },
+    ]
+    ],
+    'secondSemester':[[
+        {
+            text:'AI',
+            callback_data:'oprating system'
+        }
+    ]]
+    },
+    fifthYear:{
+        'firstSemester':[
+    [
+        {
+        text:'Hacking',
+        callback_data:'c++'
+        },
+        {
+            text:'Fundamentals of Software Eng',
+            callback_data:'fundamentals of softaware eng'
+        },
+        {
+            text:'Fundamnetals of Database',
+            callback_data:'fundamentals of data'
+        },
+        {
+            text:'',
+            callback_data:'security'
+        },
+    ]
+    ],
+    'secondSemester':[[
+        {
+            text:'Research',
+            callback_data:'oprating system'
+        }
+    ]]
+    }
+   }
     ,
-    semester: [
-         [
-            {
-                text: '1st Semester',
-                callback_data:'1st semester'
-            },
-            {
-                text: '2nd Semester',
-                callback_data:'2nd semester'
-            },
+    start: [
+        [
+        {
+            text:'First Year 👼',
+            callback_data:'First Year'
+         },
+         {
+            text:'Second Year 👶',
+            callback_data:'Second Year'
+         }
+        ],
+    
+       [
+        {
+            text:'Third Year 👦',
+            callback_data:'Third Year'
+        },
+        {
+            text:'Fourth Year 🧓',
+            callback_data:'Fourth Year'
+        }
+       ],
+       [
+        {
+            text:'Fifth Year 👴',
+            callback_data:'Fifth Year'
+        }
        ]
-    ]
+       ]
+
 
 }
 //console.log(InlineButtons[0][0].text)
 const KeyboardButtons = {
-   
-   start: [
-    [
-    {
-        text:'First Year'
-     },
-     {
-        text:'Second Year'
-     }
-    ],
-
-   [
-    {
-        text:'Third Year'
-    },
-    {
-        text:'Fourth Year'
-    }
+    semester: [
+        [
+           {
+               text: '1st Semester 📗',
+               
+           },
+           {
+               text: '2nd Semester 📘',
+               
+           },
+      ],[
+        {
+            text:'Change Year And Semester'
+        }
+      ]
    ],
-   [
-    {
-        text:'Fifth Year'
-    }
-   ]
-   ]
+   
+
 }
 
 module.exports = {InlineButtons,KeyboardButtons}

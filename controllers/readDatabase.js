@@ -12,11 +12,20 @@ const isAvailable = (user)=>{
  })
  return userExists
 }
-const findFile = async (filename)=>{
+const findFile = async(callback)=>{
+  var filename;
+  switch(callback){
+    case 'C++':{
+        filename = await callback
+        console.log('success')
+    }
+    break;
+  }
    var file_path;
-    await File.findOne({fileName:filename}).exec().then((data)=>{
+    await File.find({fileName:filename}).exec().then((data)=>{
         if(data){
-            file_path = data.file
+         // console.log(data)
+            file_path = data
         }
     })
     return file_path;

@@ -89,6 +89,24 @@ bot.onText(/\/start/,(msg)=>{
     })
 
 })
+
+bot.onText(/\/comment/, (msg) => {
+    const chatId = msg.chat.id;
+    bot.sendMessage(chatId, 'Please send your comment:');
+
+    bot.once('message', (msg) => {
+        const comment = msg.text;
+        const userName = msg.chat.username || msg.chat.first_name || 'Anonymous';
+
+        // Forward the comment to the admin
+        bot.sendMessage(873484934, `Comment from ${userName} (ID: ${chatId}):\n${comment}`);
+
+        // Confirm to the user that the comment was sent
+        bot.sendMessage(chatId, 'Your comment has been sent to the admin.');
+    });
+});
+
+
 // bot.on('callback_query',(callback)=>{
 
 //     const fileName = callback.data;
@@ -126,7 +144,19 @@ var container = {
 
 const firstSemester = buttons.KeyboardButtons.semester[0][0].text
 const secondSemester = buttons.KeyboardButtons.semester[0][1].text
+
+bot.setMyCommands([
+    { command: '/start', description: 'Start the bot' },
+    { command: '/comment', description: 'Send a comment' },
+    { command: '/menu', description: 'Show menu' }
+]);
+
 bot.on('message',async(msg) =>{
+
+    if (msg.text && msg.text.startsWith('/comment')) {
+        return;
+    }
+
     const chatId = msg.chat.id;
     const messageText = msg.text;
     // const messageuserName = msg.chat.username
@@ -146,7 +176,7 @@ bot.on('message',async(msg) =>{
         if(container[chatId]){
             console.log('check')
             const courseYear = container[chatId].year; 
-            bot.sendMessage(chatId,`${courseYear} ${messageText} course test`,{
+            bot.sendMessage(chatId,`${courseYear} ${messageText} course`,{
                 reply_markup:{
                     inline_keyboard:messageText===firstSemester? buttons.InlineButtons.courses[courseYear].firstSemester:buttons.InlineButtons.courses[courseYear].secondSemester,
                     resize_keyboard:true,
@@ -168,7 +198,17 @@ bot.on('callback_query',async(courseCallback)=>{
     bot.answerCallbackQuery(courseCallback.id)
     const year= courseCallback.data
     
-
+   const fileSet = await readDatabase.findFile(courseCallback.data)
+   
+   if(fileSet){
+    for(var i=0;i<fileSet.length;i++){
+        var filepath = fileSet[i].file
+       
+        bot.sendDocument(courseCallback.message.chat.id,filepath)
+    }
+    
+   }
+   
     try{
         switch(courseCallback.data){
 
@@ -191,30 +231,6 @@ bot.on('callback_query',async(courseCallback)=>{
             id:courseCallback.message.chat.id,
             year:'secondYear'
         }   
-    //     bot.once('message',async(msg)=>{
-    //         const message = msg.text
-    //         const msgId = msg.chat.id;
-            
-    //         console.log(userName)
-
-    //         if( msgId === courseCallback.message.chat.id){
-              
-    //         if(container[userName]){
-    //         await bot.sendMessage(msg.chat.id,`${year} ${message} courses`,{
-    //         reply_markup:{
-    //             inline_keyboard:message===semester? buttons.InlineButtons.courses.secondYear.firstSemester:buttons.InlineButtons.courses.secondYear.secondSemester,
-    //             resize_keyboard:true,
-    //             on_time_keyboard:true
-    //         }
-    //        })
-    //        delete container[userName]
-    //        console.log(container)
-    //         }
-          
-    //         }
-    
-        
-    // })
     break;
     }
     case 'Third Year' :{
@@ -225,25 +241,11 @@ bot.on('callback_query',async(courseCallback)=>{
                 on_time_keyboard:true
             }
         })   
-        const userId = await courseCallback.message.chat.username
+        const userId = await courseCallback.message.chat.id
         container[userId]={
-            id:courseCallback.message.chat.id,
+            id:userId,
             year:'thirdYear'
         }  
-    //     bot.once('message',(msg)=>{
-    //         const message = msg.text
-    //         const msgId = msg.chat.id;
-    //         if( msgId === courseCallback.message.chat.id){
-    //              bot.sendMessage(msg.chat.id,`${year} ${message} courses`,{
-    //         reply_markup:{
-    //             inline_keyboard:message===semester? buttons.InlineButtons.courses.thirdYear.firstSemester:buttons.InlineButtons.courses.thirdYear.secondSemester,
-    //             resize_keyboard:true,
-    //             on_time_keyboard:true
-    //         }
-    //     })
-    //         }
-       
-    // })
     break;
        } 
        
@@ -261,20 +263,6 @@ bot.on('callback_query',async(courseCallback)=>{
             id:userId,
             year:'fourthYear'
         } 
-    //     bot.once('message',(msg)=>{
-    //         const message = msg.text
-    //         const msgId = msg.chat.id;
-    //        if( msgId === courseCallback.message.chat.id){
-    //         bot.sendMessage(msg.chat.id,`${year} ${message} courses`,{
-    //                 reply_markup:{
-    //                     inline_keyboard:message===semester? buttons.InlineButtons.courses.fourthYear.firstSemester:buttons.InlineButtons.courses.fourthYear.secondSemester,
-    //                     resize_keyboard:true,
-    //                     on_time_keyboard:true
-    //                 }
-    //             })
-    //        }
-   
-    // })
     break;
        }
            
@@ -291,20 +279,6 @@ bot.on('callback_query',async(courseCallback)=>{
             id:userId,
             year:'fifthYear'
         } 
-    //     bot.once('message',(msg)=>{
-    //         const message = msg.text
-    //         const msgId = msg.chat.id;
-    //         if( msgId === courseCallback.message.chat.id){
-    //               bot.sendMessage(msg.chat.id,`${year} ${message} courses`,{
-    //         reply_markup:{
-    //             inline_keyboard:message===semester? buttons.InlineButtons.courses.fifthYear.firstSemester:buttons.InlineButtons.courses.fifthYear.secondSemester,
-    //             resize_keyboard:true,
-    //             on_time_keyboard:true
-    //         }
-    //     })
-    //         }
-      
-    // })  
     break;
        }
         }

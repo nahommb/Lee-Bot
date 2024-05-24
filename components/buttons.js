@@ -23,15 +23,15 @@ const InlineButtons = {
    }
    ]],
    courses:{
-    'secondYear':{
+    secondYear:{
         'firstSemester':[
     [
         {
         text:'Programming 2 (C++) ',
-        callback_data:'c++'
+        callback_data:'C++'
         },
     ],
-    
+
     [
         {
             text:'Fundamentals of Software Eng',
@@ -42,71 +42,132 @@ const InlineButtons = {
             callback_data:'fundamentals of data'
         },
         {
-            text:'',
-            callback_data:'security'
+            text:'Discrete Mathematics and Combinatory',
+            callback_data:'Discrete Mathematics and Combinatory'
         },
     ]
     ],
     'secondSemester':[[
         {
-            text:'Oprating system',
-            callback_data:'oprating system'
+            text:'Data Structure and Algorithms',
+            callback_data:'Data Structure and Algorithms'
+        },
+        {
+            text:'Computer Organization and Architecture',
+            callback_data:'Computer Organization and Architecture'
         }
-    ]]
+    ],[
+        {
+            text:'Operating Systems and Systems Programming',
+            callback_data:'Operating Systems and Systems Programming'
+        },
+        {
+            text:'Object Oriented Programming',
+            callback_data:'Object Oriented Programming'
+        },
+        {
+            text:'Fundamental of Networking',
+            callback_data:'Fundamental of Networking'
+        }
+
+    ]
+    ]
     },
     thirdYear:{
         'firstSemester':[
     [
         {
-        text:'Security',
-        callback_data:'c++'
+        text:'Microprocessors and Assembly Language',
+        callback_data:'Microprocessors and Assembly Language'
         },
         {
-            text:'Fundamentals of Software Eng',
-            callback_data:'fundamentals of softaware eng'
+            text:'Advanced Database Systems',
+            callback_data:'Advanced Database Systems'
+        },
+    ],
+
+    [
+        {
+            text:'Requirements Engineering',
+            callback_data:'Requirements Engineering'
         },
         {
-            text:'Fundamnetals of Database',
-            callback_data:'fundamentals of data'
+            text:'Software Engineering Tools and Practices',
+            callback_data:'Software Engineering Tools and Practices'
+        },
+    ],
+    [
+        {
+            text:'Web Design and Programming',
+            callback_data:'Web Design and Programming'
         },
         {
-            text:'',
-            callback_data:'security'
+            text:'Fundamental of Software Security',
+            callback_data:'Fundamental of Software Security'
         },
     ]
     ],
     'secondSemester':[[
         {
-            text:'web',
-            callback_data:'oprating system'
-        }
+            text:'Software Architecture and Design',
+            callback_data:'Software Architecture and Design'
+        },
+        {
+            text:'Advanced Programming',
+            callback_data:'Advanced Programming'
+        },
+        {
+            text:'Fundamental of Cloud Computing & IoT',
+            callback_data:'Fundamental of Cloud Computing & IoT'
+        },
+        {
+            text:'Fundamental of Distributed Systems',
+            callback_data:'Fundamental of Distributed Systems'
+        },
+        {
+            text:'Fundamental of Machine Learning',
+            callback_data:'Fundamental of Machine Learning'
+        },
+        {
+            text:'Software Project Management',
+            callback_data:'Software Project Management'
+        },
     ]]
     },
     fourthYear:{
         'firstSemester':[
     [
         {
-        text:'Machine',
-        callback_data:'c++'
+        text:'Principles of Compiler Design',
+        callback_data:'Principles of Compiler Design'
         },
         {
-            text:'Fundamentals of Software Eng',
-            callback_data:'fundamentals of softaware eng'
+            text:'Real Time and Embedded Systems',
+            callback_data:'Real Time and Embedded Systems'
+        },
+    ],
+
+        [
+        {
+            text:'Software Testing and Quality Assurance',
+            callback_data:'Software Testing and Quality Assurance'
         },
         {
-            text:'Fundamnetals of Database',
-            callback_data:'fundamentals of data'
+            text:'Mobile Application Development',
+            callback_data:'Mobile Application Development'
         },
+    ],
+    [
         {
-            text:'Advanced java',
-            callback_data:'security'
+            text:'Fundamentals of Artificial Intelligence',
+            callback_data:'Fundamentals of Artificial Intelligence'
         },
     ]
     ],
     'secondSemester':[[
         {
-            text:'AI',
-            callback_data:'oprating system'
+            text:'Internship Semester',
+            callback_data:'internship semester'
         }
     ]]
     },

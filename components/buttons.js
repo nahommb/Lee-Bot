@@ -30,6 +30,9 @@ const InlineButtons = {
         text:'Programming 2 (C++) ',
         callback_data:'c++'
         },
+    ],
+    
+    [
         {
             text:'Fundamentals of Software Eng',
             callback_data:'fundamentals of softaware eng'

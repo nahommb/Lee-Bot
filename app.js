@@ -89,52 +89,86 @@ bot.onText(/\/start/,(msg)=>{
     })
 
 })
+// bot.on('callback_query',(callback)=>{
 
+//     const fileName = callback.data;
 
+//     if(callback.data=='java'|| callback.data == 'C++'){
+//     bot.sendMessage(chatId,'now send file from the device')
+//     bot.on('message',(msg)=>{
+//        var file;
+//      try{
+//            file = msg.document.file_id
+//      }
+//      catch(err){
+//        file = msg.photo.file_id
+//      }
+       
+//        console.log(file)
+//       //storage(fileName,file)
+//     }) 
+//     }
+   
+   
+//        //
+//        console.log(callback.data)
+//    })
+
+var container = {
+    nahom:{
+        id:1234
+    },
+    eyob:{
+        id:1122,
+        year:'firstYear'
+    }
+}
+
+const firstSemester = buttons.KeyboardButtons.semester[0][0].text
+const secondSemester = buttons.KeyboardButtons.semester[0][1].text
 bot.on('message',async(msg) =>{
     const chatId = msg.chat.id;
     const messageText = msg.text;
+    // const messageuserName = msg.chat.username
 
     if(chatId===873484934 && messageText==='Admin'){
         bot.sendMessage(chatId,'Enter File Name',{
             reply_markup:{
-                inline_keyboard:buttons.InlineButtons.courses
+                inline_keyboard:buttons.InlineButtons.courses.fifthYear.firstSemester
             }
         })    
      
-    bot.on('callback_query',(callback)=>{
 
-         const fileName = callback.data;
-
-         if(callback.data=='java'|| callback.data == 'C++'){
-         bot.sendMessage(chatId,'now send file from the device')
-         bot.on('message',(msg)=>{
-            var file;
-          try{
-                file = msg.document.file_id
-          }
-          catch(err){
-            file = msg.photo.file_id
-          }
-            
-            console.log(file)
-           //storage(fileName,file)
-         }) 
-         }
-        
-        
-            //
-            console.log(callback.data)
-        })
     }  
-   else{
+   else if(messageText===firstSemester || messageText===secondSemester){
    // bot.sendDocument(chatId,file_path)
+     console.log(chatId)
+        if(container[chatId]){
+            console.log('check')
+            const courseYear = container[chatId].year; 
+            bot.sendMessage(chatId,`${courseYear} ${messageText} course test`,{
+                reply_markup:{
+                    inline_keyboard:messageText===firstSemester? buttons.InlineButtons.courses[courseYear].firstSemester:buttons.InlineButtons.courses[courseYear].secondSemester,
+                    resize_keyboard:true,
+                    on_time_keyboard:true
+                }
+            })
+            delete container[chatId]
+            console.log(container)
+        }
+   
+   
+    console.log(container)
 
-bot.on('callback_query',(courseCallback)=>{
+   }
+})
+bot.on('callback_query',async(courseCallback)=>{
 
 
     bot.answerCallbackQuery(courseCallback.id)
     const year= courseCallback.data
+    
+
     try{
         switch(courseCallback.data){
 
@@ -151,18 +185,36 @@ bot.on('callback_query',(courseCallback)=>{
                 resize_keyboard:true,
                 on_time_keyboard:true
             }
-        })    
-        bot.once('message',(msg)=>{
-            const message = msg.text
-           console.log(msg)
-        bot.sendMessage(courseCallback.message.chat.id,`${year} ${message} courses`,{
-            reply_markup:{
-                inline_keyboard:message==='1st Semester'? buttons.InlineButtons.courses.secondYear.firstSemester:buttons.InlineButtons.courses.secondYear.secondSemester,
-                resize_keyboard:true,
-                on_time_keyboard:true
-            }
-        })
-    })
+        })  
+        const userId = await courseCallback.message.chat.id
+        container[userId]={
+            id:courseCallback.message.chat.id,
+            year:'secondYear'
+        }   
+    //     bot.once('message',async(msg)=>{
+    //         const message = msg.text
+    //         const msgId = msg.chat.id;
+            
+    //         console.log(userName)
+
+    //         if( msgId === courseCallback.message.chat.id){
+              
+    //         if(container[userName]){
+    //         await bot.sendMessage(msg.chat.id,`${year} ${message} courses`,{
+    //         reply_markup:{
+    //             inline_keyboard:message===semester? buttons.InlineButtons.courses.secondYear.firstSemester:buttons.InlineButtons.courses.secondYear.secondSemester,
+    //             resize_keyboard:true,
+    //             on_time_keyboard:true
+    //         }
+    //        })
+    //        delete container[userName]
+    //        console.log(container)
+    //         }
+          
+    //         }
+    
+        
+    // })
     break;
     }
     case 'Third Year' :{
@@ -172,17 +224,26 @@ bot.on('callback_query',(courseCallback)=>{
                 resize_keyboard:true,
                 on_time_keyboard:true
             }
-        })    
-        bot.once('message',(msg)=>{
-            const message = msg.text
-        bot.sendMessage(courseCallback.message.chat.id,`${year} ${message} courses`,{
-            reply_markup:{
-                inline_keyboard:message==='1st Semester'? buttons.InlineButtons.courses.thirdYear.firstSemester:buttons.InlineButtons.courses.thirdYear.secondSemester,
-                resize_keyboard:true,
-                on_time_keyboard:true
-            }
-        })
-    })
+        })   
+        const userId = await courseCallback.message.chat.username
+        container[userId]={
+            id:courseCallback.message.chat.id,
+            year:'thirdYear'
+        }  
+    //     bot.once('message',(msg)=>{
+    //         const message = msg.text
+    //         const msgId = msg.chat.id;
+    //         if( msgId === courseCallback.message.chat.id){
+    //              bot.sendMessage(msg.chat.id,`${year} ${message} courses`,{
+    //         reply_markup:{
+    //             inline_keyboard:message===semester? buttons.InlineButtons.courses.thirdYear.firstSemester:buttons.InlineButtons.courses.thirdYear.secondSemester,
+    //             resize_keyboard:true,
+    //             on_time_keyboard:true
+    //         }
+    //     })
+    //         }
+       
+    // })
     break;
        } 
        
@@ -195,16 +256,25 @@ bot.on('callback_query',(courseCallback)=>{
                 on_time_keyboard:true
             }
         })    
-        bot.once('message',(msg)=>{
-            const message = msg.text
-        bot.sendMessage(courseCallback.message.chat.id,`${year} ${message} courses`,{
-            reply_markup:{
-                inline_keyboard:message==='1st Semester'? buttons.InlineButtons.courses.fourthYear.firstSemester:buttons.InlineButtons.courses.fourthYear.secondSemester,
-                resize_keyboard:true,
-                on_time_keyboard:true
-            }
-        })
-    })
+        const userId = await courseCallback.message.chat.id
+        container[userId]={
+            id:userId,
+            year:'fourthYear'
+        } 
+    //     bot.once('message',(msg)=>{
+    //         const message = msg.text
+    //         const msgId = msg.chat.id;
+    //        if( msgId === courseCallback.message.chat.id){
+    //         bot.sendMessage(msg.chat.id,`${year} ${message} courses`,{
+    //                 reply_markup:{
+    //                     inline_keyboard:message===semester? buttons.InlineButtons.courses.fourthYear.firstSemester:buttons.InlineButtons.courses.fourthYear.secondSemester,
+    //                     resize_keyboard:true,
+    //                     on_time_keyboard:true
+    //                 }
+    //             })
+    //        }
+   
+    // })
     break;
        }
            
@@ -216,16 +286,25 @@ bot.on('callback_query',(courseCallback)=>{
                 on_time_keyboard:true
             }
         })    
-        bot.once('message',(msg)=>{
-            const message = msg.text
-        bot.sendMessage(courseCallback.message.chat.id,`${year} ${message} courses`,{
-            reply_markup:{
-                inline_keyboard:message==='1st Semester'? buttons.InlineButtons.courses.fifthYear.firstSemester:buttons.InlineButtons.courses.fifthYear.secondSemester,
-                resize_keyboard:true,
-                on_time_keyboard:true
-            }
-        })
-    })
+        const userId = await courseCallback.message.chat.id
+        container[userId]={
+            id:userId,
+            year:'fifthYear'
+        } 
+    //     bot.once('message',(msg)=>{
+    //         const message = msg.text
+    //         const msgId = msg.chat.id;
+    //         if( msgId === courseCallback.message.chat.id){
+    //               bot.sendMessage(msg.chat.id,`${year} ${message} courses`,{
+    //         reply_markup:{
+    //             inline_keyboard:message===semester? buttons.InlineButtons.courses.fifthYear.firstSemester:buttons.InlineButtons.courses.fifthYear.secondSemester,
+    //             resize_keyboard:true,
+    //             on_time_keyboard:true
+    //         }
+    //     })
+    //         }
+      
+    // })  
     break;
        }
         }
@@ -233,13 +312,10 @@ bot.on('callback_query',(courseCallback)=>{
 
     catch(err){
         console.log(err)
+        
     }
     
 })
-
-   }
-})
-
 
 
 

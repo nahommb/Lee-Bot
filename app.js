@@ -166,9 +166,32 @@ bot.on('message',async(msg) =>{
             reply_markup:{
                 keyboard:buttons.KeyboardButtons.filename
             }
+        })
+        bot.once('message',(msg)=>{
+            const filename = msg.text
+           bot.sendMessage(msg.chat.id,'Now send file')
+             var file;
+             bot.once('message',(fielmessage)=>{
+                if(fielmessage.text){
+                    bot.sendMessage(fielmessage.chat.id,'Wrong type of file ,You can add only photo and document file. go back to /start')
+                }
+                else{
+                  try{
+                file = fielmessage.document.file_id
+                 }
+               catch(err){
+                 file = fielmessage.photo.file_id
+               } 
+               storage(filename,file)
+               bot.sendMessage(msg.chat.id,'Successfuly Add to Database')
+                }
+                
+             })
+          
+            
         })    
+       
      
-  
     }  
    else if(messageText===firstSemester || messageText===secondSemester){
    // bot.sendDocument(chatId,file_path)

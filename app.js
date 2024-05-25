@@ -162,13 +162,13 @@ bot.on('message',async(msg) =>{
     // const messageuserName = msg.chat.username
 
     if(chatId===873484934 && messageText==='Admin'){
-        bot.sendMessage(chatId,'Enter File Name',{
+        bot.sendMessage(chatId,'Choice File Name',{
             reply_markup:{
-                inline_keyboard:buttons.InlineButtons.courses.fifthYear.firstSemester
+                keyboard:buttons.KeyboardButtons.filename
             }
         })    
      
-
+  
     }  
    else if(messageText===firstSemester || messageText===secondSemester){
    // bot.sendDocument(chatId,file_path)

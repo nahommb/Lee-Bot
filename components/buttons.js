@@ -235,6 +235,142 @@ const InlineButtons = {
 }
 //console.log(InlineButtons[0][0].text)
 const KeyboardButtons = {
+    filename:[
+        
+         [
+            {
+                text:'Programming 2 (C++) ',
+                callback_data:'C++'
+                },
+                {
+                    text:'Fundamentals of Software Eng',
+                    callback_data:'fundamentals of softaware eng'
+                },
+         ] ,
+         [
+                {
+                    text:'Fundamnetals of Database',
+                    callback_data:'fundamentals of data'
+                },
+                {
+                    text:'Discrete Mathematics and Combinatory',
+                    callback_data:'Discrete Mathematics and Combinatory'
+                },
+         ] , 
+            [
+                  {
+                    text:'Data Structure and Algorithms',
+                    callback_data:'Data Structure and Algorithms'
+                },
+                {
+                    text:'Computer Organization and Architecture',
+                    callback_data:'Computer Organization and Architecture'
+                },
+            ], 
+              [
+                  {
+                    text:'Operating Systems and Systems Programming',
+                    callback_data:'Operating Systems and Systems Programming'
+                },
+                {
+                    text:'Object Oriented Programming',
+                    callback_data:'Object Oriented Programming'
+                },
+              ],
+              [
+                 {
+                    text:'Fundamental of Networking',
+                    callback_data:'Fundamental of Networking'
+                },
+                {
+                    text:'Microprocessors and Assembly Language',
+                    callback_data:'Microprocessors and Assembly Language'
+                    },
+              ],
+               [
+                    {
+                        text:'Advanced Database Systems',
+                        callback_data:'Advanced Database Systems'
+                    },
+                    {
+                        text:'Requirements Engineering',
+                        callback_data:'Requirements Engineering'
+                    },
+               ],
+                  [
+                    {
+                        text:'Software Engineering Tools and Practices',
+                        callback_data:'Software Engineering Tools and Practices'
+                    },
+                    {
+                        text:'Web Design and Programming',
+                        callback_data:'Web Design and Programming'
+                    },
+                  ], 
+                  [
+                    {
+                        text:'Software Architecture and Design',
+                        callback_data:'Software Architecture and Design'
+                    },
+                    {
+                        text:'Advanced Programming',
+                        callback_data:'Advanced Programming'
+                    },
+                  ],
+                  [
+                    {
+                        text:'Fundamental of Cloud Computing & IoT',
+                        callback_data:'Fundamental of Cloud Computing & IoT'
+                    },
+                    {
+                        text:'Fundamental of Distributed Systems',
+                        callback_data:'Fundamental of Distributed Systems'
+                    },
+                  ],
+                  [
+                    {
+                        text:'Fundamental of Machine Learning',
+                        callback_data:'Fundamental of Machine Learning'
+                    },
+                    {
+                        text:'Software Project Management',
+                        callback_data:'Software Project Management'
+                    },
+                  ],
+                  [
+                       {
+                        text:'Fundamental of Software Security',
+                        callback_data:'Fundamental of Software Security'
+                    },
+                    {
+                        text:'Principles of Compiler Design',
+                        callback_data:'Principles of Compiler Design'
+                        },
+                  ],  
+                 [
+                      {
+                            text:'Real Time and Embedded Systems',
+                            callback_data:'Real Time and Embedded Systems'
+                        },
+                        {
+                            text:'Software Testing and Quality Assurance',
+                            callback_data:'Software Testing and Quality Assurance'
+                        },
+                 ],
+                    [
+                           {
+                            text:'Mobile Application Development',
+                            callback_data:'Mobile Application Development'
+                        },
+                        {
+                            text:'Fundamentals of Artificial Intelligence',
+                            callback_data:'Fundamentals of Artificial Intelligence'
+                        },
+                    ],  
+                     
+                      
+        
+    ],
     semester: [
         [
            {

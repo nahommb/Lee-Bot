@@ -78,6 +78,10 @@ mongoose.connect("mongodb://127.0.0.1:27017/leebotdb")
 //     })
 // })                 // Authentication
 
+var commentStore = {
+
+}
+
 bot.onText(/\/start/,(msg)=>{
     const chatId = msg.chat.id;
     bot.sendMessage(chatId,words.welcome,{
@@ -93,17 +97,10 @@ bot.onText(/\/start/,(msg)=>{
 bot.onText(/\/comment/, (msg) => {
     const chatId = msg.chat.id;
     bot.sendMessage(chatId, 'Please send your comment:');
-
-    bot.once('message', (msg) => {
-        const comment = msg.text;
-        const userName = msg.chat.username || msg.chat.first_name || 'Anonymous';
-
-        // Forward the comment to the admin
-        bot.sendMessage(873484934, `Comment from ${userName} (ID: ${chatId}):\n${comment}`);
-
-        // Confirm to the user that the comment was sent
-        bot.sendMessage(chatId, 'Your comment has been sent to the admin.');
-    });
+    commentStore[chatId]={
+        id:chatId
+    }
+    console.log(commentStore) 
 });
 
 
@@ -141,6 +138,9 @@ var container = {
         year:'firstYear'
     }
 }
+var admin ={
+
+}
 
 const firstSemester = buttons.KeyboardButtons.semester[0][0].text
 const secondSemester = buttons.KeyboardButtons.semester[0][1].text
@@ -152,16 +152,30 @@ bot.setMyCommands([
 ]);
 
 bot.on('message',async(msg) =>{
-
+   const chatId = msg.chat.id;
+   const messageText = await msg.text;
+   const lowercase = msg.text?messageText.toLocaleLowerCase():null   
+   const comment = msg.text;
+   const userName = msg.chat.username || msg.chat.first_name || 'Anonymous';
+   
     if (msg.text && msg.text.startsWith('/comment')) {
         return;
     }
+  
+    if(commentStore[chatId]){
 
-    const chatId = msg.chat.id;
-    const messageText = msg.text;
+        bot.sendMessage(873484934, `Comment from ${userName} (ID: ${chatId}):\n${comment}`);
+
+        bot.sendMessage(chatId, 'Your comment has been sent to the admin.');
+      }
+
+
+ 
     // const messageuserName = msg.chat.username
 
-    if(chatId===873484934 && messageText==='Admin'){
+    
+    if(chatId===873484934 && lowercase ==='admin'){
+        
         bot.sendMessage(chatId,'Choice File Name',{
             reply_markup:{
                 keyboard:buttons.KeyboardButtons.filename
@@ -183,7 +197,7 @@ bot.on('message',async(msg) =>{
                  file = fielmessage.photo.file_id
                } 
                storage(filename,file)
-               bot.sendMessage(msg.chat.id,'Successfuly Add to Database')
+               bot.sendMessage(msg.chat.id,'Successfuly Added to Database')
                 }
                 
              })
@@ -213,7 +227,7 @@ bot.on('message',async(msg) =>{
    
     console.log(container)
 
-   }
+   } 
 })
 bot.on('callback_query',async(courseCallback)=>{
 

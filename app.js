@@ -174,16 +174,23 @@ bot.on('message',async(msg) =>{
     // const messageuserName = msg.chat.username
 
     
-    if(chatId===873484934 && lowercase ==='admin'){
-        
-        bot.sendMessage(chatId,'Choice File Name',{
+    if(chatId===873484934){
+        admin[chatId]={
+            id:chatId,
+            role:'admin'
+        }
+        if(admin[chatId] && lowercase==='admin'){
+                    bot.sendMessage(chatId,'Choice File Name',{
             reply_markup:{
                 keyboard:buttons.KeyboardButtons.filename
             }
-        })
-        bot.once('message',(msg)=>{
+        }) 
+        
+            bot.once('message',(msg)=>{
+            if(admin[chatId].id===msg.chat.id){
             const filename = msg.text
-           bot.sendMessage(msg.chat.id,'Now send file')
+            
+            bot.sendMessage(msg.chat.id,'Now send file')
              var file;
              bot.once('message',(fielmessage)=>{
                 if(fielmessage.text){
@@ -198,12 +205,39 @@ bot.on('message',async(msg) =>{
                } 
                storage(filename,file)
                bot.sendMessage(msg.chat.id,'Successfuly Added to Database')
+               delete admin[chatId]
                 }
                 
              })
           
+
+        }     
+        })  
+        
+   
+       
+        }
+        else if(messageText===firstSemester || messageText===secondSemester){
+            // bot.sendDocument(chatId,file_path)
+              console.log(chatId)
+                 if(container[chatId]){
+                     console.log('check')
+                     const courseYear = container[chatId].year; 
+                     bot.sendMessage(chatId,`${courseYear} ${messageText} course`,{
+                         reply_markup:{
+                             inline_keyboard:messageText===firstSemester? buttons.InlineButtons.courses[courseYear].firstSemester:buttons.InlineButtons.courses[courseYear].secondSemester,
+                             resize_keyboard:true,
+                             on_time_keyboard:true
+                         }
+                     })
+                     delete container[chatId]
+                     console.log(container)
+                 }
             
-        })    
+            
+             console.log(container)
+         
+            } 
        
      
     }  
@@ -333,4 +367,4 @@ bot.on('callback_query',async(courseCallback)=>{
 //bot.sendPhoto(873484934,'AgACAgQAAxkBAAM8ZkS1hhcZnoYxz-7nP6iwfAabv9UAAjHJMRsgRyBS5m3huSitnvEBAAMCAANtAAM1BA')
 app.listen('4000',function(){
     console.log('running at port 3000')
-})
+}) 

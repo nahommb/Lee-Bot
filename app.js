@@ -102,7 +102,11 @@ bot.onText(/\/comment/, (msg) => {
     }
     console.log(commentStore) 
 });
-
+bot.onText(/\/about/, (msg) => {
+    const chatId = msg.chat.id;
+    bot.sendMessage(chatId, words.about);
+ 
+});
 
 // bot.on('callback_query',(callback)=>{
 
@@ -148,7 +152,7 @@ const secondSemester = buttons.KeyboardButtons.semester[0][1].text
 bot.setMyCommands([
     { command: '/start', description: 'Start the bot' },
     { command: '/comment', description: 'Send a comment' },
-    { command: '/menu', description: 'Show menu' }
+    { command: '/about', description: 'About bot ' }
 ]);
 
 bot.on('message',async(msg) =>{

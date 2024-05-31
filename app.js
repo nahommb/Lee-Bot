@@ -2,7 +2,6 @@ const ex = require('express')
 require('dotenv').config();
 const api = process.env.API_TOKEN;
 const telegram = require('node-telegram-bot-api')
-const data = require('./Data/api_fetch') 
 const bot = new telegram(api,{polling:true})
 const app = ex()
 const mongoose = require('mongoose')
@@ -13,70 +12,13 @@ const readDatabase = require('./controllers/readDatabase')
 
 
 const words = require('./Data/word');
+const db =process.env.DATABASE_URL
 
 
+mongoose.connect(db)
+//mongodb://127.0.0.1:27017/leebotdb
+  //mongodb+srv://nahommb:Nahommelese11$@leebot.ho2se2j.mongodb.net/?retryWrites=true&w=majority&appName=leebot
 
-mongoose.connect("mongodb://127.0.0.1:27017/leebotdb")
-
-
-
-// bot.onText(/\/start/, async (msg)=>{
-//     const chatId = msg.chat.id;
-    
-//     bot.sendMessage(chatId,words.welcome,{
-//         reply_markup:{
-//             inline_keyboard:buttons.InlineButtons.register, 
-//             resize_keyboard:true,
-//             on_time_keyboard:true
-//        }
-//     })
-//     bot.on('callback_query', async (callback)=>{
-//         const chatId = callback.message.chat.id;
-//         const username = callback.message.chat.username;
-//         // console.log(callback)
-    
-//        if(callback.data ==='register'){
-//         const isAlreadyRegisterd = userExists(chatId) 
-//         console.log(isAlreadyRegisterd)
-    
-//         if(!isAlreadyRegisterd){
-//             bot.sendMessage(chatId,'payment method',{
-//             reply_markup:{
-//                 inline_keyboard:buttons.InlineButtons.done, 
-//                 resize_keyboard:true,
-//                 on_time_keyboard:true
-//            }
-//         })  
-//         }
-//          else {
-//           bot.sendMessage(chatId,'You are already registed')
-//        }
-//        }    
-//        else if(callback.data === 'done'){
-//                  var usre_id = callback.from.id
-//                  bot.sendMessage(chatId,'thanks pls wait untile ur payment varified')
-//                  bot.sendMessage(873484934,`please register this user ${username} ${chatId}`,{
-//                     reply_markup:{
-//                         inline_keyboard:buttons.InlineButtons.payment_check, 
-//                         resize_keyboard:true,
-//                         on_time_keyboard:true
-//                    }
-//                  })
-//                  bot.on('callback_query',(callback)=>{
-//                     console.log(callback)
-//                     if(callback.data === 'verified'){
-//                         register(usre_id)
-//                         bot.sendMessage(usre_id,'verified successfuly')
-//                     }
-//                     if(callback.data=== 'not verified'){
-//                         bot.sendMessage(usre_id,'Please pay accordingly')
-//                     }
-//                  })
-//             }
-     
-    
-//     })
-// })                 // Authentication
 
 var commentStore = {
 
@@ -232,15 +174,7 @@ bot.on('message',async(msg) =>{
    
        
         }
-        else if(messageText==='Change Year And Semester'){
-            bot.sendMessage(chatId,words.selectYear,{
-                reply_markup:{
-                    inline_keyboard:buttons.InlineButtons.start,
-                    resize_keyboard:true,
-                    on_time_keyboard:true
-                }
-            })
-        }
+
         else if(messageText===firstSemester || messageText===secondSemester){
             // bot.sendDocument(chatId,file_path)
               console.log(chatId)
@@ -265,6 +199,15 @@ bot.on('message',async(msg) =>{
        
      
     }  
+    else if(messageText==='Change Year And Semester'){
+        bot.sendMessage(chatId,words.selectYear,{
+            reply_markup:{
+                inline_keyboard:buttons.InlineButtons.start,
+                resize_keyboard:true,
+                on_time_keyboard:true
+            }
+        }) 
+    }
    else if(messageText===firstSemester || messageText===secondSemester){
    // bot.sendDocument(chatId,file_path)
      console.log(chatId)
@@ -303,12 +246,11 @@ bot.on('callback_query',async(courseCallback)=>{
             if(isAlreadyRegisterd){
                 //register user
                 // register(chatId)
-                bot.sendMessage(chatId,'Already registerd')  
+               await bot.sendMessage(chatId,'Already registerd')  
             }
             else {
-            bot.sendMessage(chatId,'Successfuly registed')
-        }
-        }  
+            await bot.sendMessage(chatId,'Successfuly registed')
+        }        
         bot.sendMessage(chatId,words.selectYear,{
                         reply_markup:{
                         inline_keyboard:buttons.InlineButtons.start,
@@ -316,6 +258,8 @@ bot.on('callback_query',async(courseCallback)=>{
                         on_time_keyboard:true
                     }
                 })
+        }  
+
 
    const fileSet = await readDatabase.findFile(courseCallback.data)
    

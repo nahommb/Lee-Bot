@@ -12,8 +12,8 @@ const readDatabase = require('./controllers/readDatabase')
 
 
 const words = require('./Data/word');
-const db =process.env.DATABASE_URL
-
+const db = process.env.DATABASE_URL
+const port = process.env.PORT||4000
 
 mongoose.connect(db)
 
@@ -30,10 +30,6 @@ bot.onText(/\/start/,(msg)=>{
                     on_time_keyboard:true
                }
             })
-            bot.on('callback_query', async (callback)=>{
-
-            
-}) 
 })
 
 
@@ -57,31 +53,6 @@ bot.onText(/\/users/, async(msg) => {
  
 });
  
-// bot.on('callback_query',(callback)=>{
-
-//     const fileName = callback.data;
-
-//     if(callback.data=='java'|| callback.data == 'C++'){
-//     bot.sendMessage(chatId,'now send file from the device')
-//     bot.on('message',(msg)=>{
-//        var file;
-//      try{
-//            file = msg.document.file_id
-//      }
-//      catch(err){
-//        file = msg.photo.file_id
-//      }
-       
-//        console.log(file)
-//       //storage(fileName,file)
-//     }) 
-//     }
-   
-   
-//        //
-//        console.log(callback.data)
-//    })
-
 var container = {
     nahom:{
         id:1234
@@ -351,9 +322,6 @@ bot.on('callback_query',async(courseCallback)=>{
     
 })
 
-
-
-//bot.sendPhoto(873484934,'AgACAgQAAxkBAAM8ZkS1hhcZnoYxz-7nP6iwfAabv9UAAjHJMRsgRyBS5m3huSitnvEBAAMCAANtAAM1BA')
-app.listen('4000',function(){
-    console.log('running at port 3000')
-}) 
+app.listen(port,function(){
+    console.log(`running at port ${port}`)
+})  

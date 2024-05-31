@@ -1,4 +1,3 @@
-const mongoose = require('mongoose')
 const User = require('../models/registerSchema')
 const File = require('../models/storageSchema')
 
@@ -14,17 +13,11 @@ const isAvailable = (user)=>{
 }
 const findFile = async(callback)=>{
   var filename = callback;
-  // switch(callback){
-  //   case 'C++':{
-  //       filename = await callback
-  //       console.log('success')
-  //   }
-  //   break;
-  // }
+
    var file_path;
     await File.find({fileName:filename}).exec().then((data)=>{
         if(data){
-         // console.log(data)
+      
             file_path = data
         }
     })

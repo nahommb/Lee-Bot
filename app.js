@@ -142,6 +142,15 @@ bot.on('message',async(msg) =>{
    
        
         }
+        else if(messageText==='Change Year And Semester'){
+        bot.sendMessage(chatId,words.selectYear,{
+            reply_markup:{
+                inline_keyboard:buttons.InlineButtons.start,
+                resize_keyboard:true,
+                on_time_keyboard:true
+            }
+        }) 
+    }
 
         else if(messageText===firstSemester || messageText===secondSemester){
             // bot.sendDocument(chatId,file_path)

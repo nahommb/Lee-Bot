@@ -5,10 +5,10 @@ const register = async (chatId)=>{
     chatId:chatId
   })
   var isAlreadyRegisterd = false
-await User.findOne({chatId}).exec().then((data)=>{
+await User.findOne({chatId:chatId}).exec().then((data)=>{
     if(data){
-        console.log('already registerd')
-        console.log(data)
+        //console.log('already registerd')
+       // console.log(data)
         isAlreadyRegisterd = true
     }
     else{

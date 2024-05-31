@@ -84,15 +84,19 @@ var commentStore = {
 
 bot.onText(/\/start/,(msg)=>{
     const chatId = msg.chat.id;
-    bot.sendMessage(chatId,words.selectYear,{
-        reply_markup:{
-            inline_keyboard:buttons.InlineButtons.start,
-            resize_keyboard:true,
-            on_time_keyboard:true
-        }
-    })
+    bot.sendMessage(chatId,words.welcome,{
+                reply_markup:{
+                    inline_keyboard:buttons.InlineButtons.register, 
+                    resize_keyboard:true,
+                    on_time_keyboard:true
+               }
+            })
+            bot.on('callback_query', async (callback)=>{
 
+            
+}) 
 })
+
 
 bot.onText(/\/comment/, (msg) => {
     const chatId = msg.chat.id;
@@ -107,7 +111,13 @@ bot.onText(/\/about/, (msg) => {
     bot.sendMessage(chatId, words.about);
  
 });
-
+bot.onText(/\/users/, async(msg) => {
+    const chatId = msg.chat.id;
+    var users = await readDatabase.numberOfUsers()
+    bot.sendMessage(chatId,`${users} Users`)
+ 
+});
+ 
 // bot.on('callback_query',(callback)=>{
 
 //     const fileName = callback.data;
@@ -152,7 +162,8 @@ const secondSemester = buttons.KeyboardButtons.semester[0][1].text
 bot.setMyCommands([
     { command: '/start', description: 'Start the bot' },
     { command: '/comment', description: 'Send a comment' },
-    { command: '/about', description: 'About bot ' }
+    { command: '/about', description: 'About bot ' },
+    { command: '/users', description: 'Number of users '}
 ]);
 
 bot.on('message',async(msg) =>{
@@ -280,8 +291,32 @@ bot.on('callback_query',async(courseCallback)=>{
 
 
     bot.answerCallbackQuery(courseCallback.id)
-    const year= courseCallback.data
     
+            const chatId = courseCallback.message.chat.id;
+           // const username = callback.message.chat.username;
+            // console.log(callback)
+
+        if(courseCallback.data ==='register'){
+            const isAlreadyRegisterd = await register(chatId)
+            console.log(isAlreadyRegisterd)
+
+            if(isAlreadyRegisterd){
+                //register user
+                // register(chatId)
+                bot.sendMessage(chatId,'Already registerd')  
+            }
+            else {
+            bot.sendMessage(chatId,'Successfuly registed')
+        }
+        }  
+        bot.sendMessage(chatId,words.selectYear,{
+                        reply_markup:{
+                        inline_keyboard:buttons.InlineButtons.start,
+                        resize_keyboard:true,
+                        on_time_keyboard:true
+                    }
+                })
+
    const fileSet = await readDatabase.findFile(courseCallback.data)
    
    if(fileSet){

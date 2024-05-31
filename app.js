@@ -16,9 +16,6 @@ const db =process.env.DATABASE_URL
 
 
 mongoose.connect(db)
-//mongodb://127.0.0.1:27017/leebotdb
-  //mongodb+srv://nahommb:Nahommelese11$@leebot.ho2se2j.mongodb.net/?retryWrites=true&w=majority&appName=leebot
-
 
 var commentStore = {
 

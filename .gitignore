@@ -1,3 +1,5 @@
 .env
 coulmn.ts
 landingPageListSchema.ts
+.vercel
+node-modules

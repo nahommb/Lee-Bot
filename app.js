@@ -92,6 +92,7 @@ bot.on('message',async(msg) =>{
         bot.sendMessage(873484934, `Comment from ${userName} (ID: ${chatId}):\n${comment}`);
 
         bot.sendMessage(chatId, 'Your comment has been sent to the admin.');
+        delete commentStore[chatId]
       }
 
 

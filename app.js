@@ -76,47 +76,11 @@ bot.setMyCommands([
     { command: '/users', description: 'Number of users '}
 ]);
 
-
-
-
-
-//const express = require('express');
-// const bodyParser = require('body-parser');
-// require('dotenv').config();
-// const api = process.env.API_TOKEN;
-// const telegram = require('node-telegram-bot-api');
-// const bot = new telegram(api, { polling: true });
-// const mongoose = require('mongoose');
-// const buttons = require('./components/buttons');
-// const register = require('./controllers/register');
-// const storage = require('./controllers/storage');
-// const readDatabase = require('./controllers/readDatabase');
-// const words = require('./Data/word');
-// const db = process.env.DATABASE_URL;
-// const port = process.env.PORT || 4000;
-
-// mongoose.connect(db);
-
-// const app = express();
-// app.use(bodyParser.json());
-
-// var commentStore = {};
-
 // Define the keep-alive endpoint
 
 app.get('/keepalive', (req, res) => {
   res.send('Keeping the bot alive!');
 });
-
-
-// Your existing code...
-
-// Start the server
-
-
-
-
-
 
 
 bot.on('message',async(msg) =>{
@@ -392,4 +356,4 @@ app.listen(port, () => {
         });
     }, 5 * 60 * 1000); // Ping every 5 minutes
   });
-  
+   

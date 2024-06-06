@@ -354,6 +354,6 @@ app.listen(port, () => {
         .catch((err) => {
           console.error('Keep-alive ping failed:', err);
         });
-    }, 5 * 60 * 1000); // Ping every 5 minutes
+    }, 2 * 60 * 1000); // Ping every 5 minutes
   });
    

@@ -9,7 +9,7 @@ const buttons = require('./components/buttons')
 const register = require('./controllers/register')
 const storage = require('./controllers/storage')
 const readDatabase = require('./controllers/readDatabase')
-
+const axios = require('axios');
 
 const words = require('./Data/word');
 const db = process.env.DATABASE_URL
@@ -347,7 +347,7 @@ app.listen(port, () => {
   
     // Keep-alive mechanism
     setInterval(() => {
-      axios.get(`http://localhost:${port}/keepalive`)
+      axios.get(`http://lee-bot.onrender.com:${port}/keepalive`)
         .then(() => {
           console.log('Keep-alive ping successful');
         })

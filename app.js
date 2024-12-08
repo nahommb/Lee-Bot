@@ -172,7 +172,7 @@ bot.on('message',async(msg) =>{
                              resize_keyboard:true,
                              on_time_keyboard:true
                          }
-                     })
+                     }) 
                      delete container[chatId]
                      console.log(container)
                  }
@@ -338,10 +338,10 @@ bot.on('callback_query',async(courseCallback)=>{
     }
     
 })
-
+ 
 // app.listen(port,function(){
 //     console.log(`running at port ${port}`)
-// })   
+// })    
 app.listen(port, () => {
     console.log(`Server running on port ${port}`); 
   

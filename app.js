@@ -171,7 +171,7 @@ bot.on('message',async(msg) =>{
                              inline_keyboard:messageText===firstSemester? buttons.InlineButtons.courses[courseYear].firstSemester:buttons.InlineButtons.courses[courseYear].secondSemester,
                              resize_keyboard:true,
                              on_time_keyboard:true
-                         }
+                         } 
                      }) 
                      delete container[chatId]
                      console.log(container)
